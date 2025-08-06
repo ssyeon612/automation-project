@@ -1,0 +1,4 @@
+pytest
+playwright
+Appium-Python-Client
+allure-pytest

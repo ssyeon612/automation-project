@@ -26,7 +26,7 @@ jobs:
       - name: Run Web Tests Only
         run: pytest tests/web/test_search_web.py --alluredir=allure-results
 
-      - name: Debug: Show current working directory and files
+      - name: Debug Show current working directory and files
         run: |
           echo "Current directory:"
           pwd

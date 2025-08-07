@@ -28,24 +28,21 @@ jobs:
           Set-Location $env:GITHUB_WORKSPACE
           # pip install pytest playwright Appium-Python-Client allure-pytest
           pip install -r requirements.txt
-          
+
       - name: Run Web Tests Only
         run: |
           Set-Location $env:GITHUB_WORKSPACE
           pytest tests/web/test_search_web.py --alluredir=allure-results
 
       - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@master
-        with:
-          allure_results: allure-results
-          allure_report: allure-report
-          keep_reports: 5
-
-      - name: Upload Report Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-report
-          path: allure-report
+        run: |
+          Set-Location $env:GITHUB_WORKSPACE
+          allure generate --clean -o allure-report allure-results
+            - name: Upload Report Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: allure-report
+                path: allure-report
 
       - name: Send Slack Notification
         run: |

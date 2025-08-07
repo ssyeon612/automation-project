@@ -14,6 +14,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Print workspace path
+        run: echo "GitHub workspace - $env:GITHUB_WORKSPACE"
+
       - name: Check Python
         run: |
           python --version
@@ -29,9 +32,10 @@ jobs:
           pwd
           echo "Listing files:"
           dir  # Windows / ls -al (Linux)
-          
+
       - name: Run Web Tests Only
-        run: pytest tests/web/test_search_web.py --alluredir=allure-results
+        run: pytest --alluredir=allure-results
+        working-directory: ${{ github.workspace }}
 
 
       - name: Generate Allure Report

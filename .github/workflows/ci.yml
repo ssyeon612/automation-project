@@ -25,17 +25,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pytest playwright Appium-Python-Client allure-pytest
-        working-directory: ${{ github.workspace }}
-
-      - name: Debug Show current working directory and files
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Listing files:"
-          dir
-        working-directory: ${{ github.workspace }}
-
+          Set-Location $env:GITHUB_WORKSPACE
+          # pip install pytest playwright Appium-Python-Client allure-pytest
+          pip install -r requirements.txt
+          
       - name: Run Web Tests Only
         run: |
           Set-Location $env:GITHUB_WORKSPACE

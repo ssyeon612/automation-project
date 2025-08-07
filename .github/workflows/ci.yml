@@ -15,11 +15,15 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Send Slack Notification
-        shell: bash
         run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{
-            "text": "*테스트 실행 완료* :white_check_mark:\n브랜치: '${GITHUB_REF}'\n결과: '${{ job.status }}'\n[리포트 다운로드](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
-          }' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+          $payload = @{
+            text = "*테스트 실행 완료* :white_check_mark:`n브랜치: ${{ github.ref }}`n결과: 성공 🎉`n[리포트 보기](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+          } | ConvertTo-Json -Compress
+
+          Invoke-RestMethod `
+            -Uri "${{ secrets.SLACK_WEBHOOK_URL }}" `
+            -Method Post `
+            -Body $payload `
+            -ContentType 'application/json'
+
 

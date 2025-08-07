@@ -38,12 +38,20 @@ jobs:
         run: |
           Set-Location $env:GITHUB_WORKSPACE
           allure generate --clean -o allure-report allure-results
-          
+
       - name: Upload Report Artifact
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: allure-report
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          publish_branch: gh-pages
+          force_orphan: true
 
       - name: Send Slack Notification
         run: |

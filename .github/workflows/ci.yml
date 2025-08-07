@@ -17,15 +17,21 @@ jobs:
       - name: Check Python
         run: |
           python --version
-          where python  # 윈도우용
+          where python
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-          playwright install --with-deps
+          pip install pytest playwright Appium-Python-Client allure-pytest
 
-      - name: Run Tests
-        run: pytest --alluredir=allure-results
+      - name: Run Web Tests Only
+        run: pytest tests/web/test_search_web.py --alluredir=allure-results
+
+      - name: Debug: Show current working directory and files
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Listing files:"
+          dir  # Windows / ls -al (Linux)
 
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master

@@ -21,22 +21,24 @@ jobs:
         run: |
           python --version
           where python
+        working-directory: ${{ github.workspace }}
 
       - name: Install dependencies
         run: |
           pip install pytest playwright Appium-Python-Client allure-pytest
+        working-directory: ${{ github.workspace }}
 
       - name: Debug Show current working directory and files
         run: |
           echo "Current directory:"
           pwd
           echo "Listing files:"
-          dir  # Windows / ls -al (Linux)
-
-      - name: Run Web Tests Only
-        run: pytest --alluredir=allure-results
+          dir
         working-directory: ${{ github.workspace }}
 
+      - name: Run Web Tests Only
+        run: pytest tests/web/test_search_web.py --alluredir=allure-results
+        working-directory: ${{ github.workspace }}
 
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master

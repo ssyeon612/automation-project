@@ -45,14 +45,6 @@ jobs:
           name: allure-report
           path: allure-report
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
-          publish_branch: gh-pages
-          keep_files: false
-
       - name: Send Slack Notification
         run: |
           $payload = @{
@@ -65,4 +57,11 @@ jobs:
             -Body $payload `
             -ContentType 'application/json'
 
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          publish_branch: gh-pages
+          keep_files: false
 

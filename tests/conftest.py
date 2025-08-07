@@ -7,6 +7,14 @@ def pytest_addoption(parser):
 @pytest.fixture(scope="session")
 def driver(request):
     platform = request.config.getoption("--platform")
-    driver_instance = create_driver(platform)
-    yield driver_instance
-    driver_instance.quit()
+    drv = create_driver(platform)
+
+    if platform == "web":
+        # drv를 dict 형태로 받아서 page만 넘겨줌
+        yield drv["page"]
+        drv["browser"].close()
+        drv["pw"].stop()
+
+    elif platform == "mobile":
+        yield drv["driver"]
+        drv["driver"].quit()

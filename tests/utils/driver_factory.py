@@ -4,9 +4,15 @@ from appium import webdriver
 def create_driver(platform):
     if platform == "web":
         pw = sync_playwright().start()
-        browser = pw.chromium.launch(headless=True)
+        browser = pw.chromium.launch(headless=False)
         context = browser.new_context()
-        return context.new_page()
+        page = context.new_page()
+        return {
+            "pw": pw,
+            "browser": browser,
+            "context": context,
+            "page": page
+        }
     
     elif platform == "mobile":
         caps = {
@@ -16,4 +22,5 @@ def create_driver(platform):
             "appActivity": ".MainActivity",
             "automationName": "UiAutomator2"
         }
-        return webdriver.Remote("http://127.0.0.1:4723", caps)
+        driver = webdriver.Remote("http://127.0.0.1:4723", caps)
+        return { "driver": driver }

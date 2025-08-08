@@ -1,2 +1,2 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","2308","[Web] Playwright 사이트 접속 테스트","tests.web","Fri Aug 08 14:57:45 KST 2025","passed","Fri Aug 08 14:57:48 KST 2025","","test_search_web","",""
+"","2286","[Web] Playwright 사이트 접속 테스트","tests.web","Fri Aug 08 16:07:25 KST 2025","passed","Fri Aug 08 16:07:27 KST 2025","","test_search_web","",""

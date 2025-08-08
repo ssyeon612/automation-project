@@ -57,6 +57,23 @@ jobs:
             -Body $payload `
             -ContentType 'application/json'
 
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "테스트 실행 완료 - ${{ github.ref }}"
+          to: syjeong@wisewires.com
+          from: "Automation Bot <ssyeon612@gmail.com>"
+          body: |
+            테스트 실행이 완료되었습니다.
+
+            브랜치: ${{ github.ref }}
+            결과: 성공 🎉
+            리포트 보기: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
